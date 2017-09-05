@@ -20,4 +20,4 @@ $ composer require ivyhjk/phalcon-oauth2
 
 ## License
 
-This package is released under the MIT License. See the bundled [LICENSE](https://github.com/thephpleague/oauth2-server/blob/master/LICENSE) file for details.
+This package is released under the MIT License. See the bundled [LICENSE](https://github.com/ivyhjk/phalcon-oauth2/blob/master/LICENSE) file for details.
