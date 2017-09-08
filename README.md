@@ -18,6 +18,10 @@ It's recommended that you use [Composer](https://getcomposer.org) to install thi
 $ composer require ivyhjk/phalcon-oauth2
 ```
 
+## Migration
+
+For migrations, we suggest to use [Phinx](https://github.com/robmorgan/phinx).
+
 ## License
 
 This package is released under the MIT License. See the bundled [LICENSE](https://github.com/ivyhjk/phalcon-oauth2/blob/master/LICENSE) file for details.
