@@ -1,0 +1,38 @@
+{
+    "name": "ivyhjk/phalcon-oauth2",
+    "description": "OAuth2 implementation for Phalcon Framework",
+    "license": "MIT",
+    "keywords": [
+        "oauth",
+        "oauth2",
+        "oauth 2",
+        "oauth 2.0",
+        "server",
+        "auth",
+        "authorization",
+        "authorisation",
+        "authentication",
+        "auth",
+        "protect",
+        "secure",
+        "phalcon",
+        "phalconphp"
+    ],
+    "authors": [
+        {
+            "name": "ivyhjk",
+            "email": "elvis.munoz.f@gmail.com"
+        }
+    ],
+    "require": {
+        "league/oauth2-server": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ivyhjk\\Phalcon\\OAuth2\\Server\\": "src"
+        }
+    },
+    "require-dev": {
+        "robmorgan/phinx": "^0.9.0"
+    }
+}
