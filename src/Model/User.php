@@ -16,6 +16,6 @@ class User extends \Phalcon\Mvc\Model
 {
     public function initialize()
     {
-        $this->setSource('core_users');
+        $this->setSource('oauth2_users');
     }
 }
