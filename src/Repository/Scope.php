@@ -11,6 +11,7 @@ use Ivyhjk\Phalcon\OAuth2\Server\Model\ScopeGrant as ScopeGrantModel;
 use Ivyhjk\Phalcon\OAuth2\Server\Model\ScopeUser as ScopeUserModel;
 use Ivyhjk\Phalcon\OAuth2\Server\Model\User as UserModel;
 use Ivyhjk\Phalcon\OAuth2\Server\Entity\Scope as ScopeEntity;
+use League\OAuth2\Server\Exception\OAuthServerException;
 
 /**
  * A scope repository.
