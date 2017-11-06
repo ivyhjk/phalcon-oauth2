@@ -4,6 +4,7 @@ require dirname(__DIR__).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autol
 
 use League\OAuth2\Server\CryptKey;
 use Phalcon\Db\Adapter\Pdo\Mysql;
+use League\OAuth2\Server\Exception\OAuthServerException;
 use Ivyhjk\Phalcon\OAuth2\Server\AuthorizationServer;
 use Ivyhjk\Phalcon\OAuth2\Server\Grant\PasswordGrant;
 use Ivyhjk\Phalcon\OAuth2\Server\Repository\AccessToken as AccessTokenRepository;
@@ -21,10 +22,10 @@ $app = new \Phalcon\Mvc\Micro($di);
 
 $app->setService('db', function () {
     return new Mysql([
-        'host' => '127.0.0.1',
-        'username' => 'root',
-        'password' => '',
-        'dbname' => 'myl',
+        'host' => 'development.rootbin.sh',
+        'username' => 'oauth2',
+        'password' => 'tn2fopC7eZy374fV',
+        'dbname' => 'oauth2',
     ]);
 });
 
@@ -70,10 +71,27 @@ $app->post('/access_token', function () {
         new \DateInterval('PT1H') // access tokens will expire after 1 hour
     );
 
-    return $server->respondToPhalconAccessTokenRequest(
-        $this->getService('request'),
-        $this->getService('response')
-    );
+    try {
+        $response = $server->respondToPhalconAccessTokenRequest(
+            $this->getService('request'),
+            $this->getService('response')
+        );
+    } catch (OAuthServerException $e) {
+        $response = $this->getService('response');
+        $response->setStatusCode($e->getHttpStatusCode());
+        $response->setJsonContent([
+            'error' => $e->getErrorType(),
+            'message' => $e->getMessage()
+        ]);
+    } catch (\Exception $e) {
+        $response = $this->getService('response');
+        $response->setStatusCode(500);
+        $response->setJsonContent([
+            'error' => $e->getMessage()
+        ]);
+    }
+
+    return $response;
 });
 
 $app->handle();
