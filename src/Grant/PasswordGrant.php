@@ -85,6 +85,7 @@ class PasswordGrant extends LeaguePasswordGrant implements GrantTypeInterface
             $this->getIdentifier(),
             $client
         );
+
         if ($user instanceof UserEntityInterface === false) {
             // TODO: Add a request event for phalcon.
             // $this->getEmitter()->emit(new RequestEvent(RequestEvent::USER_AUTHENTICATION_FAILED, $request));
@@ -122,6 +123,8 @@ class PasswordGrant extends LeaguePasswordGrant implements GrantTypeInterface
             $client,
             $user->getIdentifier()
         );
+
+        print_r($scopes);exit();
 
         // Issue and persist new tokens
         $accessToken = $this->issueAccessToken($accessTokenTTL, $client, $user->getIdentifier(), $scopes);
