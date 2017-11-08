@@ -124,8 +124,6 @@ class PasswordGrant extends LeaguePasswordGrant implements GrantTypeInterface
             $user->getIdentifier()
         );
 
-        print_r($scopes);exit();
-
         // Issue and persist new tokens
         $accessToken = $this->issueAccessToken($accessTokenTTL, $client, $user->getIdentifier(), $scopes);
         $refreshToken = $this->issueRefreshToken($accessToken);
