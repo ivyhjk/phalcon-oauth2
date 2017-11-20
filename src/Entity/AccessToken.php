@@ -12,7 +12,8 @@ namespace Ivyhjk\Phalcon\OAuth2\Server\Entity;
  * @copyright Copyright (c) 2017, Elvis Munoz
  * @license https://opensource.org/licenses/MIT MIT License
  */
-class AccessToken implements \League\OAuth2\Server\Entities\AccessTokenEntityInterface
+class AccessToken extends Token implements
+    \Ivyhjk\Phalcon\OAuth2\Server\Contract\Entity\AccessToken
 {
     use \League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
     use \League\OAuth2\Server\Entities\Traits\EntityTrait;
