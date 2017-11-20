@@ -12,7 +12,8 @@ namespace Ivyhjk\Phalcon\OAuth2\Server\Entity;
  * @copyright Copyright (c) 2017, Elvis Munoz
  * @license https://opensource.org/licenses/MIT MIT License
  */
-class Client implements \League\OAuth2\Server\Entities\ClientEntityInterface
+class Client extends Entity implements
+    \Ivyhjk\Phalcon\OAuth2\Server\Contract\Entity\Client
 {
     use \League\OAuth2\Server\Entities\Traits\ClientTrait;
     use \League\OAuth2\Server\Entities\Traits\EntityTrait;
