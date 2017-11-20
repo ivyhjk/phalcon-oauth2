@@ -8,6 +8,7 @@ use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use Ivyhjk\Phalcon\OAuth2\Server\Entity\AccessToken as AccessTokenEntity;
 use Ivyhjk\Phalcon\OAuth2\Server\Model\AccessToken as AccessTokenModel;
 use Ivyhjk\Phalcon\OAuth2\Server\Model\Scope as ScopeModel;
+use League\OAuth2\Server\Exception\OAuthServerException;
 
 /**
  * An access token repository.
@@ -68,10 +69,10 @@ class AccessToken extends BaseRepository implements
         $accessToken = new AccessTokenModel();
         $accessToken->identifier = $accessTokenEntity->getIdentifier();
         $accessToken->user_id = $accessTokenEntity->getUserIdentifier();
-        $accessToken->client_id = $accessTokenEntity->getClient()->getIdentifier();
-        $accessToken->expire_time = $accessTokenEntity->getExpiryDateTime()->format('Y-m-d H:i:s');
+        $accessToken->client_id = $accessTokenEntity->getClient()->getId();
         $accessToken->scopes = $scopeModels;
         $accessToken->revoked = 0;
+        $accessToken->expires_at = $accessTokenEntity->getExpiryDateTime()->format('Y-m-d H:i:s');
         $accessToken->created_at = date('Y-m-d H:i:s');
         $accessToken->save();
 
@@ -80,6 +81,8 @@ class AccessToken extends BaseRepository implements
                 'Access token token can not be persisted.'
             );
         }
+
+        $accessTokenEntity->setId($accessToken->id);
     }
 
     /**
