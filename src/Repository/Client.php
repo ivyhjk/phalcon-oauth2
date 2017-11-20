@@ -83,7 +83,7 @@ class Client extends BaseRepository implements
             throw OAuthServerException::invalidClient();
         }
 
-        $client = new ClientEntity();
+        $client = new ClientEntity($result->id);
         $client->setName($result->name);
         $client->setIdentifier($result->identifier);
 
