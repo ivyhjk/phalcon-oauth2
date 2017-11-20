@@ -10,7 +10,7 @@ use Phalcon\Mvc\Model\Query\Builder;
  *
  * @since v1.0.0
  * @version v1.0.0
- * @package Ivyhjk
+ * @package Ivyhjk\Phalcon\OAuth2\Server\Repository
  * @author Elvis Munoz <elvis.munoz.f@gmail.com>
  * @copyright Copyright (c) 2017, Elvis Munoz
  * @license https://opensource.org/licenses/MIT MIT License
