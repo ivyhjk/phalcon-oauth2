@@ -12,7 +12,8 @@ namespace Ivyhjk\Phalcon\OAuth2\Server\Entity;
  * @copyright Copyright (c) 2017, Elvis Munoz
  * @license https://opensource.org/licenses/MIT MIT License
  */
-class RefreshToken implements \League\OAuth2\Server\Entities\RefreshTokenEntityInterface
+class RefreshToken extends Token implements
+    \Ivyhjk\Phalcon\OAuth2\Server\Contract\Entity\RefreshToken
 {
     use \League\OAuth2\Server\Entities\Traits\EntityTrait;
     use \League\OAuth2\Server\Entities\Traits\RefreshTokenTrait;
