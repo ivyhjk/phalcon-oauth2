@@ -43,34 +43,20 @@ class RefreshToken extends BaseRepository implements
      */
     public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity)
     {
-        $accessTokenModel = $this->getNewBuilder()
-            ->columns([
-                'AccessToken.id',
-                'AccessToken.identifier',
-            ])
-            ->addFrom(AccessTokenModel::class, 'AccessToken')
-            ->where('AccessToken.identifier = :identifier:', [
-                'identifier' => $refreshTokenEntity->getAccessToken()->getIdentifier()
-            ])
-            ->limit(1)
-            ->getQuery()
-            ->getSingleResult();
-
         $refreshToken = new RefreshTokenModel();
         $refreshToken->identifier = $refreshTokenEntity->getIdentifier();
-
-        $refreshToken->access_token_id = $accessTokenModel->id;
-
-        $refreshToken->expire_time = $refreshTokenEntity
+        $refreshToken->access_token_id = $refreshTokenEntity->getAccessToken()->getId();
+        $refreshToken->expires_at = $refreshTokenEntity
             ->getExpiryDateTime()
             ->format('Y-m-d H:i:s');
 
         if ( ! $refreshToken->save()) {
-            var_dump($refreshToken->getMessages());exit();
             throw OAuthServerException::serverError(
                 'Refresh token can not be persisted.'
             );
         }
+
+        $refreshTokenEntity->setId($refreshToken->id);
     }
 
     /**
