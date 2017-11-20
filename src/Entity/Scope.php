@@ -12,7 +12,8 @@ namespace Ivyhjk\Phalcon\OAuth2\Server\Entity;
  * @copyright Copyright (c) 2017, Elvis Munoz
  * @license https://opensource.org/licenses/MIT MIT License
  */
-class Scope implements \League\OAuth2\Server\Entities\ScopeEntityInterface
+class Scope extends Entity implements
+    \Ivyhjk\Phalcon\OAuth2\Server\Contract\Entity\Scope
 {
     use \League\OAuth2\Server\Entities\Traits\EntityTrait;
 
