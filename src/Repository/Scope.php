@@ -50,7 +50,7 @@ class Scope extends BaseRepository implements
             throw OAuthServerException::invalidScope($identifier);
         }
 
-        $scope = new ScopeEntity();
+        $scope = new ScopeEntity($result->id);
         $scope->setIdentifier($result->identifier);
 
         return $scope;
@@ -75,18 +75,19 @@ class Scope extends BaseRepository implements
     ) {
         $builder = $this->getNewBuilder()
             ->columns([
-                'Scope.id',
-                'Scope.identifier',
+                'Scope.id'
             ])
             ->addFrom(ScopeModel::class, 'Scope');
 
-        $scopesIdentifiers = [];
+        $scopesById = [];
+        $scopesId = [];
 
         foreach ($scopes as $scope) {
-            $scopesIdentifiers[] = $scope->getIdentifier();
+            $scopesId[] = $scope->getId();
+            $scopesById[$scope->getId()] = $scope;
         }
 
-        $builder->inWhere('Scope.identifier', $scopesIdentifiers);
+        $builder->inWhere('Scope.id', $scopesId);
 
         // TODO: Maybe a validation for "limit_scopes_to_grants".
         $builder
@@ -98,8 +99,8 @@ class Scope extends BaseRepository implements
         $builder
             ->innerJoin(ScopeClientModel::class, 'ScopeClient.scope_id = Scope.id', 'ScopeClient')
             ->innerJoin(ClientModel::class, 'Client.id = ScopeClient.client_id', 'Client')
-            ->andWhere('Client.identifier = :client_identifier:', [
-                'client_identifier' => $clientEntity->getIdentifier()
+            ->andWhere('Client.id = :client_id:', [
+                'client_id' => $clientEntity->getId()
             ]);
 
         // TODO: Maybe a validation for "limit_users_to_scopes".
@@ -117,15 +118,16 @@ class Scope extends BaseRepository implements
             throw OAuthServerException::invalidScope($scope->getIdentifier());
         }
 
-        $entities = [];
+        $filteredScopes = [];
 
-        foreach ($result as $scope) {
-            $entity = new ScopeEntity();
-            $entity->setIdentifier($scope->identifier);
+        foreach ($result as $scopeResult) {
+            if (isset($scopesById[$scopeResult->id])) {
+                $scope = $scopesById[$scopeResult->id];
 
-            $entities[] = $entity;
+                $filteredScopes[] = $scope;
+            }
         }
 
-        return $entities;
+        return $filteredScopes;
     }
 }
