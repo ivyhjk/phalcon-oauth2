@@ -103,10 +103,10 @@ class Scope extends BaseRepository implements
             ]);
 
         // TODO: Maybe a validation for "limit_users_to_scopes".
-        // $builder
-        //     ->innerJoin(ScopeUserModel::class, 'ScopeUser.scope_id = Scope.id', 'ScopeUser')
-        //     ->innerJoin(UserModel::class, 'User.id = ScopeUser.user_id', 'User')
-        //     ->AndWhere('User.id = :userIdentifier:', compact('userIdentifier'));
+        $builder
+            ->innerJoin(ScopeUserModel::class, 'ScopeUser.scope_id = Scope.id', 'ScopeUser')
+            ->innerJoin(UserModel::class, 'User.id = ScopeUser.user_id', 'User')
+            ->AndWhere('User.id = :userIdentifier:', compact('userIdentifier'));
 
         $query = $builder->getQuery();
         $result = $query->execute();
